@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gitshiwam/app/global.dart';
-import 'package:gitshiwam/models/repository_model.dart';
 import 'package:gitshiwam/models/user_info_model.dart';
 import 'package:gitshiwam/mvvm/home_mvvm.dart';
-import 'package:gitshiwam/service/auth_service.dart';
 import 'package:gitshiwam/statemanagement/mvvm_builder.widget.dart';
 import 'package:gitshiwam/statemanagement/views/stateless.view.dart';
+import 'package:gitshiwam/view/home/common/widget.dart';
 import 'package:gitshiwam/view/home/pr_list.dart';
 import 'package:gitshiwam/widget/loading_indicator.dart';
 import 'package:gitshiwam/widget/tab/tab_bar.dart';
+import 'package:gitshiwam/widget/widget.dart';
 
 
 class HomeView extends StatelessWidget {
@@ -19,30 +19,17 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MVVM<HomeMvvm>(
-      view: (context, vmodel) => const Home(),
+      view: (context, vmodel) => const HomeContainer(),
       viewModel: HomeMvvm()
         ..userInfo= userInfo
     );
   }
 }
 
-class Home extends  StatelessView<HomeMvvm>  {
-  const Home({Key? key}) : super(key: key);
-
-
+class HomeContainer extends  StatelessView<HomeMvvm>  {
+  const HomeContainer({Key? key}) : super(key: key);
   @override
   Widget render(BuildContext context, HomeMvvm vm) {
-   return  const UserDetails();
-  }
-}
-
-class UserDetails extends StatelessView<HomeMvvm> {
-  const UserDetails({Key? key,}) : super(key: key);
-
-
-  @override
-  Widget render(BuildContext context, HomeMvvm vm) {
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -60,25 +47,21 @@ class UserDetails extends StatelessView<HomeMvvm> {
       ),
       floatingActionButton: InkWell(
         onTap: (){
-          clearSharedPref();
-          AuthService.logOut();
-         Navigator.pushReplacementNamed(context, '/');
+          logOutApp(context);
         },
         child: Container(
           height: 80,
           width: 80,
           alignment: Alignment.center,
           decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.blue
+              shape: BoxShape.circle,
+              color: Colors.blue
           ),
           child: const Text("Log out",style: TextStyle(color: Colors.white),),
         ),
       ),
     );
   }
-
-
 }
 
 class TabWidgetBuilder extends StatefulWidget {
@@ -123,8 +106,6 @@ class _TabWidgetBuilderState extends State<TabWidgetBuilder> with TickerProvider
   }
 }
 
-
-
 class TabFutureBuilder extends StatelessView<HomeMvvm> {
   const TabFutureBuilder({Key? key}) : super(key: key);
 
@@ -133,7 +114,7 @@ class TabFutureBuilder extends StatelessView<HomeMvvm> {
    return Expanded(
       child:Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: vm.getRepo == null ? FutureBuilder(
+        child: vm.getRepo == null ? FutureAPIBuilder(
           future: vm.repoList,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
@@ -161,7 +142,7 @@ class PrFutureBuilder extends StatelessView<HomeMvvm> {
   Widget render(BuildContext context, HomeMvvm vm) {
     return  Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: vm.getPr == null ? FutureBuilder(
+      child: vm.getPr == null ? FutureAPIBuilder(
         future: vm.getRepoPr(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
@@ -177,66 +158,6 @@ class PrFutureBuilder extends StatelessView<HomeMvvm> {
             return const LoadingIndicator();
           }
         },) : vm.getPr!.isNotEmpty ?  const PrItems() :   const Center(child : Text("No Closed Pull Request")),
-    );
-  }
-}
-
-
-class UserProfile extends StatelessWidget {
-  final UserInfoModel? userInfo;
-
-  const UserProfile({
-    Key? key,
-    this.userInfo,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      isThreeLine: true,
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(userInfo?.avatarUrl as String),
-      ),
-      title: Text(
-        userInfo?.login ?? '',
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-      ),
-      subtitle: Text(
-        userInfo?.bio ?? '',
-        style: TextStyle(color: Colors.black),
-      ),
-    );
-  }
-}
-
-
-class FollowersDetails extends StatelessWidget {
-  final UserInfoModel? userInfo;
-  const FollowersDetails({Key? key,required this.userInfo}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Icon(
-            Icons.person,
-            color: Colors.black,
-          ),
-          const SizedBox(width: 10),
-          Text(
-            '${userInfo?.followers} followers',
-            style: TextStyle(color: Colors.black),
-          ),
-          const SizedBox(width: 20),
-          Text(
-            '${userInfo?.following} following',
-            style: TextStyle(color: Colors.black),
-          )
-        ],
-      ),
     );
   }
 }

@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
-
 import 'package:flutter/material.dart';
 import 'package:gitshiwam/models/user_info_model.dart';
 import 'package:gitshiwam/routes/route_handler.dart';
 import 'package:gitshiwam/service/auth_service.dart';
-import 'package:gitshiwam/view/authentication/auth_screen.dart';
 import 'package:gitshiwam/app/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

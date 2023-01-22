@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gitshiwam/app/global.dart';
 import 'package:gitshiwam/models/access_token_model.dart';
 
 class AuthService {
@@ -46,6 +47,7 @@ class AuthService {
   ];
 
   static void logOut() async {
+    clearSharedPref();
     await _storage.deleteAll();
   }
 }

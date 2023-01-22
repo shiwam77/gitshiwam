@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gitshiwam/app/global.dart';
+import 'package:gitshiwam/service/auth_service.dart';
 
 
 Duration defaultAnimDuration = const Duration(milliseconds: 250);
@@ -155,5 +157,115 @@ class _SizeExpandedSectionState extends State<SizeExpandedSection>
   }
 }
 
+
+
+class FutureAPIBuilder<T> extends StatelessWidget {
+  final Future<T>? future;
+  final AsyncWidgetBuilder<T>? initialData;
+  final builder;
+
+  const FutureAPIBuilder({
+    Key? key,
+    this.future,
+    this.initialData,
+    required this.builder,
+  }): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return FutureBuilder<T>(
+      key: key,
+      future: future,
+      builder: (BuildContext context, AsyncSnapshot<T> snapshot){
+        // check if auth error has occured
+        if(snapshot.connectionState == ConnectionState.done && snapshot.error != null){
+          // Error error = snapshot.error;
+          bool logout = false;
+          logout = errorResolverShouldLogout(snapshot.error);
+          if(logout){
+            return const ForceLogoutAlertDialogue("Session expired");
+          }
+        }
+        return builder(context, snapshot);
+      },
+    );
+  }
+
+  bool errorResolverShouldLogout(error) {
+    //Todo
+    //returning false as of now
+    //Will check expiretoken error here then will return the value according to that
+    return true;
+  }
+
+}
+
+class ForceLogoutAlertDialogue extends StatefulWidget {
+  final String titleMessage;
+  const ForceLogoutAlertDialogue(this.titleMessage,{Key? key,}) : super(key: key);
+
+  @override
+  State<ForceLogoutAlertDialogue> createState() => _ForceLogoutAlertDialogueState();
+}
+
+class _ForceLogoutAlertDialogueState extends State<ForceLogoutAlertDialogue> {
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      logOutApp(context);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return  AlertDialog(
+      contentPadding: const EdgeInsets.all(0),
+      content: Container(
+        height: 180,
+        width: 150,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0)
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              color: Theme.of(context).primaryColor,
+              padding: const EdgeInsets.all(8),
+              height: 40,
+              child: Text(widget.titleMessage,overflow: TextOverflow.clip, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+            ),
+            const SizedBox(height: 35,),
+            const Center(
+              child: SizedBox(
+                height: 40,
+                width: 40,
+                child: CircularProgressIndicator(),
+              ),
+            ),
+            const SizedBox(height: 15,),
+            const Center(
+              child: Text("logging out...", style: TextStyle(color: Colors.black, fontSize: 14),),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void logOutApp(BuildContext context, {String? message}) {
+  AuthService.logOut();
+  Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+}
 
 

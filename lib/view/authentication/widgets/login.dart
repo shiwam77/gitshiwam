@@ -22,7 +22,7 @@ class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
@@ -46,9 +46,9 @@ class _LoginState extends State<Login> {
               loading = true;
             });
             await _browserAuth().then(( AccessTokenModel accessTokenModel) async {
-               AuthService.storeAccessToken(accessTokenModel);
-               userInfo = await UserInfoService.getCurrentUserInfo();
-               SharedPreferences prefs = await SharedPreferences.getInstance();
+              AuthService.storeAccessToken(accessTokenModel);
+              userInfo = await UserInfoService.getCurrentUserInfo();
+              SharedPreferences prefs = await SharedPreferences.getInstance();
               bool result =  await prefs.setString('user', jsonEncode(userInfo));
             });
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  HomeView(userInfo: userInfo,)));
@@ -66,6 +66,8 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
+
 
 Future<AccessTokenModel> _browserAuth() async {
   const appAuth = FlutterAppAuth();
