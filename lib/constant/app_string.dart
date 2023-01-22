@@ -13,6 +13,7 @@ class AppString{
   static const pr = "Close Pr";
   static const noRepositories= "No Repositories";
   static const noClosedPullRequest= "No Closed Pull Request";
+  static const somethingWentWrong = "something went wrong";
   static const createdAt= "CreatedAt";
   static const updatedAt= "UpdatedAt";
   static const  language=  "Language:";

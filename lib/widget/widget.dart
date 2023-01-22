@@ -187,6 +187,8 @@ class FutureAPIBuilder<T> extends StatelessWidget {
           logout = errorResolverShouldLogout(snapshot.error);
           if(logout){
             return const ForceLogoutAlertDialogue(AppString.sessionExpired);
+          }else{
+            return const Center(child : Text(AppString.somethingWentWrong));
           }
         }
         return builder(context, snapshot);
