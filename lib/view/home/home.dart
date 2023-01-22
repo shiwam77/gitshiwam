@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gitshiwam/app/global.dart';
 import 'package:gitshiwam/models/user_info_model.dart';
-import 'package:gitshiwam/mvvm/home_mvvm.dart';
 import 'package:gitshiwam/statemanagement/mvvm_builder.widget.dart';
 import 'package:gitshiwam/statemanagement/views/stateless.view.dart';
 import 'package:gitshiwam/view/home/common/widget.dart';
 import 'package:gitshiwam/view/home/pr_list.dart';
+import 'package:gitshiwam/vm/home_mvvm.dart';
 import 'package:gitshiwam/widget/loading_indicator.dart';
 import 'package:gitshiwam/widget/tab/tab_bar.dart';
 import 'package:gitshiwam/widget/widget.dart';
