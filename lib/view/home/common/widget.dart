@@ -21,11 +21,11 @@ class UserProfile extends StatelessWidget {
       ),
       title: Text(
         userInfo?.login ?? '',
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
         userInfo?.bio ?? '',
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
       ),
     );
   }
@@ -50,12 +50,12 @@ class FollowersDetails extends StatelessWidget {
           const SizedBox(width: 10),
           Text(
             '${userInfo?.followers} followers',
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
           const SizedBox(width: 20),
           Text(
             '${userInfo?.following} following',
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           )
         ],
       ),
@@ -104,7 +104,7 @@ class PrItems extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.normal
                               ,fontSize: 12,
                               color: Colors.grey ),),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         Container(
                           height: 5,
                           width: 5,
@@ -113,7 +113,7 @@ class PrItems extends StatelessWidget {
                               shape: BoxShape.circle
                           ),
                         ),
-                        SizedBox(width: 5,),
+                        const SizedBox(width: 5,),
                         Text(
                           formattedDate(vm.getPr![index].createdAt),
                           maxLines: 2,
@@ -134,7 +134,7 @@ class PrItems extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.normal
                               ,fontSize: 12,
                               color: Colors.grey ),),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         Container(
                           height: 5,
                           width: 5,
@@ -143,9 +143,9 @@ class PrItems extends StatelessWidget {
                               shape: BoxShape.circle
                           ),
                         ),
-                        SizedBox(width: 5,),
+                        const SizedBox(width: 5,),
                         Text(
-                          "${formattedDate(vm.getPr![index].updatedAt)}",
+                          formattedDate(vm.getPr![index].updatedAt),
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.clip,
@@ -165,7 +165,7 @@ class PrItems extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.normal
                               ,fontSize: 12,
                               color:Colors.indigo),),
-                        SizedBox(width: 8,),
+                        const SizedBox(width: 8,),
 
                         Text(
                           "${vm.getPr![index].state}",
@@ -182,7 +182,7 @@ class PrItems extends StatelessWidget {
           );
         },
         separatorBuilder:  (context,index){
-          return Divider();
+          return const Divider();
         },
         itemCount: vm.getPr?.length as int);
   }
