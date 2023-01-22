@@ -13,10 +13,7 @@ class PrMvvm extends ViewModel {
   List<PullRequestModel>? get getPr => _getPr;
   bool? stateOpen = false;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+
   setStateCheckBox(bool? isOpen){
     stateOpen = isOpen;
     _getPr?.clear();

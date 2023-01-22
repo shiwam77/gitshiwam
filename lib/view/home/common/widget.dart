@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gitshiwam/app/global.dart';
 import 'package:gitshiwam/models/user_info_model.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class UserProfile extends StatelessWidget {
   final UserInfoModel? userInfo;
@@ -71,6 +73,7 @@ class PrItems extends StatelessWidget {
         itemBuilder: (context,index){
           return InkWell(
             onTap: (){
+              launchUrl(Uri.parse(vm.getPr![index].htmlUrl),mode: LaunchMode.externalApplication);
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

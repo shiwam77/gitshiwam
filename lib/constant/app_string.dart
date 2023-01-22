@@ -10,7 +10,7 @@ class AppString{
   static const sessionExpired = "Session expired";
   static const logout = "Log out";
   static const repositories = "Repositories";
-  static const pr = "Pr";
+  static const pr = "Close Pr";
   static const noRepositories= "No Repositories";
   static const noClosedPullRequest= "No Closed Pull Request";
   static const createdAt= "CreatedAt";

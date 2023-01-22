@@ -17,19 +17,10 @@ class PullsService {
         .get('${Endpoints.repos}/$userName/$repoName/${Endpoints.pulls}',
         queryParameters: queryParameters);
   final List unParsedData = response.data;
+  print(unParsedData);
     final parsedData =
         unParsedData.map((e) => PullRequestModel.fromJson(e)).toList();
     return parsedData;
-  }
-
-  static Future<List<PullRequestModel>> getAllPR(String? userName,Map<String,String>? queryParameters) async {
-    List<PullRequestModel> allPr = [];
-    List<RepositoryModel> repos = await getRepo(userName,);
-    for(var repo in repos)  {
-      var pr = await getRepoPr(userName,repo.name,queryParameters : queryParameters);
-      allPr.addAll(pr);
-    }
-    return allPr;
   }
 
   static Future<List<RepositoryModel>> getRepo(String? userName) async {
