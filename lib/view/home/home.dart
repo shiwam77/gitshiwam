@@ -84,6 +84,12 @@ class _TabWidgetBuilderState extends State<TabWidgetBuilder> with TickerProvider
   }
 
   @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return  Column(
       children: [
@@ -159,7 +165,7 @@ class PrFutureBuilder extends StatelessView<HomeMvvm> {
 
             return const LoadingIndicator();
           }
-        },) : vm.getPr!.isNotEmpty ?  const PrItems() :   const Center(child : Text(AppString.noClosedPullRequest)),
+        },) : vm.getPr!.isNotEmpty ?   PrItems(vm:vm) :   const Center(child : Text(AppString.noClosedPullRequest)),
     );
   }
 }

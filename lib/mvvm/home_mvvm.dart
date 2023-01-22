@@ -41,7 +41,7 @@ class HomeMvvm extends ViewModel {
       _getPr = [];
       for(var repo in _getRepo!)  {
         var pr = await PullsService.getRepoPr(userInfo?.login, repo.name,queryParameters : {"state": "closed"});
-
+        print(_getPr?.length);
         _getPr?.addAll(pr);
       }
 
