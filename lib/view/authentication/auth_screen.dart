@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:gitshiwam/constant/app_string.dart';
 import 'package:gitshiwam/view/authentication/widgets/login.dart';
 import 'package:gitshiwam/widget/widget.dart';
 
@@ -62,9 +63,9 @@ class AppNameWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(TextSpan(
         style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: size),
-        children: const [
-          TextSpan(text: 'GIT'),
-          TextSpan(text: 'SHIWAM', style: TextStyle(fontWeight: FontWeight.bold)),
+        children:  const [
+          TextSpan(text: AppString.GIT),
+          TextSpan(text: AppString.SHIWAM, style: TextStyle(fontWeight: FontWeight.bold)),
         ]));
   }
 }
@@ -76,7 +77,7 @@ class AppLogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'assets/gitlogo.jpeg',
+      AppString.logo,
       height: size,
       width: size,
     );

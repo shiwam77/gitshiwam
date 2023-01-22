@@ -9,6 +9,8 @@ import 'package:gitshiwam/view/home/pr_list.dart';
 import 'package:gitshiwam/widget/loading_indicator.dart';
 import 'package:gitshiwam/widget/tab/tab_bar.dart';
 import 'package:gitshiwam/widget/widget.dart';
+import 'package:gitshiwam/constant/app_string.dart';
+
 
 
 class HomeView extends StatelessWidget {
@@ -57,7 +59,7 @@ class HomeContainer extends  StatelessView<HomeMvvm>  {
               shape: BoxShape.circle,
               color: Colors.blue
           ),
-          child: const Text("Log out",style: TextStyle(color: Colors.white),),
+          child: const Text(AppString.logout,style: TextStyle(color: Colors.white),),
         ),
       ),
     );
@@ -86,8 +88,8 @@ class _TabWidgetBuilderState extends State<TabWidgetBuilder> with TickerProvider
     return  Column(
       children: [
         TabBarWidget(
-            tabNameOne: "Repositories",
-            tabNameSecond: "Pr",
+            tabNameOne: AppString.repositories,
+            tabNameSecond: AppString.pr,
             onTap: ((value) {
               widget.vm.setTabIndex(value);
             }),
@@ -122,14 +124,14 @@ class TabFutureBuilder extends StatelessView<HomeMvvm> {
               if(vm.getRepo != null && vm.getRepo!.isNotEmpty ){
                 return  TabWidgetBuilder(vm: vm,);
               }else{
-                return const Center(child : Text("No Repositories"));
+                return const Center(child : Text(AppString.noRepositories));
               }
 
             }else{
 
               return const LoadingIndicator();
             }
-          },) : vm.getRepo!.isNotEmpty ?   TabWidgetBuilder(vm: vm,) :   const Center(child : Text("No Repositories")),
+          },) : vm.getRepo!.isNotEmpty ?   TabWidgetBuilder(vm: vm,) :   const Center(child : Text(AppString.noRepositories)),
       ),
     );
   }
@@ -150,14 +152,14 @@ class PrFutureBuilder extends StatelessView<HomeMvvm> {
             if(vm.getPr != null && vm.getPr!.isNotEmpty ){
               return  PrItems(vm:vm);
             }else{
-              return const Center(child : Text("No Closed Pull Request"));
+              return const Center(child : Text(AppString.noClosedPullRequest));
             }
 
           }else{
 
             return const LoadingIndicator();
           }
-        },) : vm.getPr!.isNotEmpty ?  const PrItems() :   const Center(child : Text("No Closed Pull Request")),
+        },) : vm.getPr!.isNotEmpty ?  const PrItems() :   const Center(child : Text(AppString.noClosedPullRequest)),
     );
   }
 }
@@ -177,12 +179,9 @@ class RepoItems extends StatelessView<HomeMvvm> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  children: const [
-                    Icon(Icons.offline_bolt_rounded,),
-                  ],
-                ),
+                const Icon(Icons.offline_bolt_rounded,),
                 const SizedBox(width: 10,),
+
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,17 +192,18 @@ class RepoItems extends StatelessView<HomeMvvm> {
                           fontWeight: FontWeight.normal,
                           fontSize: 18),),
                     const SizedBox(height: 5,),
+
                     Row(
                       children: [
                         const Text(
-                          "CreatedAt",
+                          AppString.createdAt,
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           style: TextStyle(fontWeight: FontWeight.normal
                               ,fontSize: 12,
                               color: Colors.grey ),),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         Container(
                           height: 5,
                           width: 5,
@@ -212,9 +212,9 @@ class RepoItems extends StatelessView<HomeMvvm> {
                               shape: BoxShape.circle
                           ),
                         ),
-                        SizedBox(width: 5,),
+                        const SizedBox(width: 5,),
                         Text(
-                          "${formattedDate(vm.getRepo![index].createdAt)}",
+                          formattedDate(vm.getRepo![index].createdAt),
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.clip,
@@ -223,17 +223,18 @@ class RepoItems extends StatelessView<HomeMvvm> {
                               color:Colors.grey ),),
                       ],
                     ),
+
                     Row(
                       children: [
                         const Text(
-                          "UpdatedAt",
+                          AppString.updatedAt,
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           style: TextStyle(fontWeight: FontWeight.normal
                               ,fontSize: 12,
                               color: Colors.grey ),),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         Container(
                           height: 5,
                           width: 5,
@@ -242,9 +243,10 @@ class RepoItems extends StatelessView<HomeMvvm> {
                               shape: BoxShape.circle
                           ),
                         ),
-                        SizedBox(width: 5,),
+                        const SizedBox(width: 5,),
+
                         Text(
-                          "${formattedDate(vm.getRepo![index].updatedAt)}",
+                          formattedDate(vm.getRepo![index].updatedAt),
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.clip,
@@ -253,18 +255,20 @@ class RepoItems extends StatelessView<HomeMvvm> {
                               color:Colors.grey ),),
                       ],
                     ),
+
                     const SizedBox(height: 10,),
+
                     Row(
                       children:  [
                         const Text(
-                          "Language:",
+                         AppString.language,
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           style: TextStyle(fontWeight: FontWeight.normal
                               ,fontSize: 12,
                               color:Colors.indigo),),
-                        SizedBox(width: 8,),
+                        const SizedBox(width: 8,),
 
                         Text(
                           "${vm.getRepo![index].language}",
@@ -281,7 +285,7 @@ class RepoItems extends StatelessView<HomeMvvm> {
           );
         },
         separatorBuilder:  (context,index){
-          return Divider();
+          return const Divider();
         },
         itemCount: vm.getRepo!.length);
   }

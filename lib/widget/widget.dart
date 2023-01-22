@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gitshiwam/app/global.dart';
+import 'package:gitshiwam/constant/app_string.dart';
 import 'package:gitshiwam/service/auth_service.dart';
 
 
@@ -23,7 +23,8 @@ class ScaleExpandedSection extends StatefulWidget {
   final Duration? duration;
 
   @override
-  _ScaleExpandedSectionState createState() => _ScaleExpandedSectionState();
+  State<ScaleExpandedSection> createState() => _ScaleExpandedSectionState();
+
 }
 
 class _ScaleExpandedSectionState extends State<ScaleExpandedSection>
@@ -100,7 +101,8 @@ class SizeExpandedSection extends StatefulWidget {
   final Duration? duration;
 
   @override
-  _SizeExpandedSectionState createState() => _SizeExpandedSectionState();
+  State<SizeExpandedSection> createState() => _SizeExpandedSectionState();
+
 }
 
 class _SizeExpandedSectionState extends State<SizeExpandedSection>
@@ -173,7 +175,7 @@ class FutureAPIBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return FutureBuilder<T>(
       key: key,
       future: future,
@@ -184,7 +186,7 @@ class FutureAPIBuilder<T> extends StatelessWidget {
           bool logout = false;
           logout = errorResolverShouldLogout(snapshot.error);
           if(logout){
-            return const ForceLogoutAlertDialogue("Session expired");
+            return const ForceLogoutAlertDialogue(AppString.sessionExpired);
           }
         }
         return builder(context, snapshot);
@@ -254,7 +256,7 @@ class _ForceLogoutAlertDialogueState extends State<ForceLogoutAlertDialogue> {
             ),
             const SizedBox(height: 15,),
             const Center(
-              child: Text("logging out...", style: TextStyle(color: Colors.black, fontSize: 14),),
+              child: Text(AppString.logout, style: TextStyle(color: Colors.black, fontSize: 14),),
             )
           ],
         ),

@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gitshiwam/app/private_key.dart';
+import 'package:gitshiwam/constant/app_string.dart';
 import 'package:gitshiwam/models/access_token_model.dart';
-import 'package:gitshiwam/models/repository_model.dart';
 import 'package:gitshiwam/models/user_info_model.dart';
 import 'package:gitshiwam/service/auth_service.dart';
-import 'package:gitshiwam/service/pulls_service.dart';
 import 'package:gitshiwam/service/user_info_service.dart';
 import 'package:gitshiwam/widget/button.dart';
 import 'package:gitshiwam/widget/widget.dart';
@@ -74,11 +72,11 @@ Future<AccessTokenModel> _browserAuth() async {
   final result = await appAuth.authorizeAndExchangeCode(
     AuthorizationTokenRequest(
       PrivateKeys.clientID,
-      'com.example.gitshiwam://login-callback',
+      AppString.redirectUrl,
       clientSecret: PrivateKeys.clientSecret,
       serviceConfiguration:  const AuthorizationServiceConfiguration(
-          authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-          tokenEndpoint:'https://github.com/login/oauth/access_token',
+          authorizationEndpoint: AppString.authorizationEndpoint,
+          tokenEndpoint:AppString.tokenEndpoint,
       ),
       scopes: AuthService.scopes,
     ),
