@@ -91,14 +91,14 @@ class PrList extends StatelessView<PrMvvm> {
                     if(vm.getPr != null && vm.getPr!.isNotEmpty ){
                       return  PrItems(vm:vm);
                     }else{
-                      return const Center(child : Text(AppString.noClosedPullRequest));
+                      return  Center(child :  Text("No ${vm.stateOpen == false ? 'open' : 'close'} Pull Request"));
                     }
 
                   }else{
 
                     return const LoadingIndicator();
                   }
-                },) : vm.getPr!.isNotEmpty ?  const PrItems() :   const Center(child : Text(AppString.noClosedPullRequest)),
+                },) : vm.getPr!.isNotEmpty ?  const PrItems() :    Center(child : Text("No ${vm.stateOpen == false ? 'open' : 'close'} Pull Request")),
             ),
           ),
 
